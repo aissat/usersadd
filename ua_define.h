@@ -36,8 +36,8 @@
 #define MAX_FIELD_LENGTH		1024
 
 /*
- * If you want change path to passgen script, make sure what fuction
- * "passgen" (ua_crypt.c) is correctly.
+ * If you want change path to passgen script, make sure what function
+ * "passgen" (ua_crypt.c) is correct.
  */
 #define PASSGEN_PATH ".scripts/passgen.sh"
 

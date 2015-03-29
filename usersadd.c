@@ -49,16 +49,22 @@ int add_users (char *pfile_path) {
 	FILE *ppasswd = NULL;
 	if ((ppasswd = fopen ("/etc/passwd", "a")) == NULL) {
 		perror ("Can't open file \"/etc/passwd\"");
+		fclose (pusers_list);
 		return (-1);
 	}
 	FILE *pshadow = NULL;
 	if ((pshadow = fopen ("/etc/shadow", "a")) == NULL) {
 		perror ("Can't open file \"/etc/shadow\"");
+		fclose (pusers_list);
+		fclose (ppasswd);
 		return -1;
 	}
 	FILE *pgroup = NULL;
 	if ((pgroup = fopen ("/etc/group", "a")) == NULL) {
 		perror ("Can't open file \"/etc/group\"");
+		fclose (pusers_list);
+		fclose (ppasswd);
+		fclose (pshadow);
 		return (-1);
 	}
 	

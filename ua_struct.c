@@ -83,7 +83,12 @@ account *
 account_init (char *plogin, unsigned int num) {
 	account *pacc = (account *) calloc (1, sizeof (account));
 	pacc->puser = user_info_init(plogin, num);
-	pacc->date = 1; //TODO: Add date calculation
+	
+	//TODO: maybe not popen?
+	FILE *pfd = popen ("expr `date +%s` / 86400", "r");
+	fscanf (pfd, "%d", &pacc->date);
+	pclose (pfd);
+
 	//All anower fields of "pacc" is NULL (calloc)
 	
 	return pacc;

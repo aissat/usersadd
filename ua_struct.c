@@ -59,7 +59,7 @@ user_info *
 user_info_init (char *plogin, unsigned int num) {
 	user_info *puser = (user_info *) calloc (1, sizeof (user_info));
 	puser->plogin = plogin;
-	char *ppass = passgen ();
+	char *ppass = passgen (PASSGEN_PATH, DEFAULT_PASSWORD_LENGTH);
 	fprintf (stdout, "Login: %s\nPassword: %s\n\n", 
 				puser->plogin, ppass);
 	

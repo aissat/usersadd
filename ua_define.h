@@ -30,9 +30,15 @@
 #define DEFAULT_FILE_PATH		"/etc/usersadd/users.lst"
 #define MAX_LOGIN_LENGTH		256
 #define DEFAULT_PASSWORD		"qwerty"
-#define DEFAULT_PASSWORD_LENGTH	8
+#define DEFAULT_PASSWORD_LENGTH	16
 #define DEFAULT_START_UID		1500
 #define DEFAULT_START_GID		1500
 #define MAX_FIELD_LENGTH		1024
+
+/*
+ * If you want change path to passgen script, make sure what fuction
+ * "passgen" (ua_crypt.c) is correctly.
+ */
+#define PASSGEN_PATH ".scripts/passgen.sh"
 
 #endif

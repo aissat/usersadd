@@ -41,12 +41,18 @@ saltgen (unsigned int length) {
 }
 
 char *
-passgen () {
-	//TODO: do something with passgen
-	FILE *pfd = popen (".scripts/passgen.sh -c 1 -l 8", "r");
-	char *ppass = (char *) calloc (DEFAULT_PASSWORD_LENGTH, sizeof(char));
+passgen (char *ppassgen_path, unsigned int length) {
+	char *pcmd = (char *) calloc (MAX_FIELD_LENGTH, sizeof (char));
+	
+	//See here, if default passgen script was modified
+	//TODO: as option
+	sprintf (pcmd, "%s -c 1 -l %d", ppassgen_path, length);
+	
+	FILE *pfd = popen (pcmd, "r");
+	char *ppass = (char *) calloc (length, sizeof(char));
 	fscanf (pfd, "%s", ppass);
 	pclose (pfd);
+	free (pcmd);
 	return ppass;
 }
 

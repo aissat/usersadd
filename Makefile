@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -o useradd
+CFLAGS=-Wall -o usersadd
 LDFLAGS=-lcrypt
 
 all:

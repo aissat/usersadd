@@ -31,7 +31,7 @@
 
 char * 
 saltgen (unsigned int length) {
-	char *psalt = (char *) malloc (sizeof (char) * length);
+	char *psalt = (char *) calloc (length, sizeof (char));
 	
 	int i = 0;
 	for (; i < length; i++) {

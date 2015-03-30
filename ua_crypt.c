@@ -32,6 +32,7 @@
 char * 
 saltgen (unsigned int length) {
 	char *psalt = (char *) calloc (length, sizeof (char));
+	srand (rand ());
 	
 	int i = 0;
 	for (; i < length; i++) {

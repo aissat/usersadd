@@ -36,8 +36,17 @@
 
 static const struct option long_opts[] = {
 	{"file", required_argument, 0, 'f'},
+	{"help", no_argument, 0, 'h'},
 	{NULL, no_argument, NULL, 0}
 };
+
+void
+usage (char **argv) {
+	fprintf (stdout, "Usage: %s [-f file] [-h]\n", argv[0]);
+	fprintf (stdout, "  --help (-h) - print this message\n");
+	fprintf (stdout, "  --file (-f file) - file with users login. "
+						"By default used /etc/usersadd/users.lst\n");
+}
 
 int add_users (char *pfile_path) {
 	FILE *pusers_list = NULL;
@@ -70,6 +79,7 @@ int add_users (char *pfile_path) {
 	
 	char *plogin  = (char *) calloc (MAX_LOGIN_LENGTH, sizeof (char));
 	unsigned int num = 0;
+	
 	while (fscanf (pusers_list, "%s", plogin) != EOF) {
 		account *pacc = account_init (plogin, num);
 		
@@ -100,22 +110,26 @@ int add_users (char *pfile_path) {
 int 
 main(int argc, char **argv) {
 	
-	if (geteuid ()) 
-		fprintf (stderr, "Effective user id is not 0.\n" 
-							"You may not have required permissions\n");
-	
 	char *pfile_path = DEFAULT_FILE_PATH;
 	
 	char opt = 0;
-	while ((opt = getopt_long (argc, argv, "f:", long_opts, NULL)) != -1) {
+	while ((opt = getopt_long (argc, argv, "hf:", long_opts, NULL)) != -1) {
 		switch (opt) {
 			case 'f':
 				pfile_path = optarg;
 				break;
+			case 'h':
+				usage (argv);
+				return 0;
 			default:
-				fprintf (stderr, "Unknown option\n");
+				usage (argv);
+				return -1;
 		}
 	} 
+	
+	if (geteuid ()) 
+		fprintf (stderr, "Effective user id is not 0.\n" 
+							"You may not have required permissions\n");
 	
 	int ret = add_users (pfile_path);
 	if (ret < 0)
